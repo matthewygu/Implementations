@@ -1,0 +1,2 @@
+- I am allowed to use AI to understand concepts behind why certain implementations work, understand sample implementations, and ask for feedback.
+- All coding in this repo is solely my own, and of which is drawn entirely from my own memory. If it's here, I should be able to write it from scratch independently AND be able to explain it.
