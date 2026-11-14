@@ -21,8 +21,9 @@ class PIDController:
         return self.Kp * e + self.Ki * self.e_i + self.Kd * de_dt
 
 def ref(t):
+    """Ideal value we are trying to get the system to reach at moment t"""
     return 10 * math.sin(0.5 * t)
-    
+
 if __name__ == "__main__":
     # Create a system, which we can imagine to be a mass attached to a prismatic joint which we want to reach a certain displacement, the reference displacement ref, and its true displacement is x.
     # Assume the joint is pointing upward, so increasing x is increasing vertical height.
@@ -58,6 +59,6 @@ if __name__ == "__main__":
 
     print(f"Squared Error: {se}")
     plt.plot(t_list, r_list, label="reference")
-    plt.plot(t_list, x_list, label="true displacement")
+    plt.plot(t_list, x_list, label="true x")
     plt.legend()
     plt.show()
