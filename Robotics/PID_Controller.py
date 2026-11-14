@@ -21,7 +21,7 @@ class PIDController:
         return self.Kp * e + self.Ki * self.e_i + self.Kd * de_dt
 
 def ref(t):
-    return 10 * math.sin(t) + 5 * math.cos(1.5 * t)
+    return 10 * math.sin(0.5 * t)
     
 if __name__ == "__main__":
     # Create a system, which we can imagine to be a mass attached to a prismatic joint which we want to reach a certain displacement, the reference displacement ref, and its true displacement is x.
@@ -35,9 +35,9 @@ if __name__ == "__main__":
     total_time = 100.0 # seconds
     dt = 0.001 # time resolution
     se = 0.0 # accumulates error
-    pid = PIDController(80, 10, 10)
+    pid = PIDController(200, 100, 150)
 
-    t_list = [t for t in range(int(total_time / dt) + 1)]
+    t_list = [i * dt for i in range(int(total_time / dt) + 1)]
     r_list: list = []
     x_list: list = []
 
@@ -56,6 +56,7 @@ if __name__ == "__main__":
         v += a * dt
         x += v * dt
 
+    print(f"Squared Error: {se}")
     plt.plot(t_list, r_list, label="reference")
     plt.plot(t_list, x_list, label="true displacement")
     plt.legend()
