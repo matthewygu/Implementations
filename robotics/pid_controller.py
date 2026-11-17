@@ -22,7 +22,7 @@ class PIDController:
 
 def ref(t):
     """Ideal value we are trying to get the system to reach at moment t"""
-    return 10 * math.sin(0.5 * t)
+    return 10 * math.log(t+0.001)
 
 if __name__ == "__main__":
     # Create a system, which we can imagine to be a mass attached to a prismatic joint which we want to reach a certain displacement, the reference displacement ref, and its true displacement is x.
@@ -41,6 +41,7 @@ if __name__ == "__main__":
     t_list = [i * dt for i in range(int(total_time / dt) + 1)]
     r_list: list = []
     x_list: list = []
+    max_os = 0.0
 
     for t in t_list:
         r = ref(t)
@@ -57,7 +58,12 @@ if __name__ == "__main__":
         v += a * dt
         x += v * dt
 
+        # Overshoot
+        if abs(r-x) > abs(max_os):
+            max_os = r-x
+
     print(f"Squared Error: {se}")
+    print(f"Overshoot: {max_os}")
     plt.plot(t_list, r_list, label="reference")
     plt.plot(t_list, x_list, label="true x")
     plt.legend()
